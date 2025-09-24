@@ -1,0 +1,36 @@
+def count_negatives(grid):
+    """
+    Counts the total number of negative numbers in a sorted matrix.
+
+    The matrix is sorted in non-increasing order in both rows and columns.
+
+    Args:
+        grid: A list of lists representing the sorted matrix.
+
+    Returns:
+        The total count of negative numbers.
+    """
+    count = 0
+    num_rows = len(grid)
+    num_cols = len(grid[0])
+    
+    # Start from the bottom-left corner of the matrix
+    row = num_rows - 1
+    col = 0
+    
+    while row >= 0 and col < num_cols:
+        # If the current element is negative, all elements to its right
+        # in the same row will also be negative because the row is sorted.
+        if grid[row][col] < 0:
+            # We found a negative number. All elements in this row
+            # from the current column to the end are negative.
+            count += (num_cols - col)
+            # Move to the row above to continue the search.
+            row -= 1
+        else:
+            # If the current element is not negative, it means all elements
+            # above it in the same column are also non-negative (due to
+            # the column being sorted). So, we can safely move to the next column.
+            col += 1
+            
+    return count
